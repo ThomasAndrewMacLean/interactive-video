@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 body {
   display: flex;
@@ -8,7 +9,13 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
   transition: background-color 999ms ease;
+}
+h1 {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
 }
 #beeContainer {
   margin: auto;
@@ -31,9 +38,30 @@ video {
   justify-content: center;
   align-items: center;
   display: flex;
+  flex-direction: column;
+}
+#controls p {
+  width: 80%;
+  margin-bottom: 2rem;
 }
 
 li {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
+}
+
+select,
+input {
+  font-family: inherit;
+  font-size: 12px;
+  margin: 2px;
+  border: 1px solid grey;
+  display: flex;
+  border-radius: 0px;
+  height: 20px;
+  line-height: 20px;
+}
+input {
+  padding-left: 4px;
 }
