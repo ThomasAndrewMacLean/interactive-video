@@ -36,7 +36,12 @@ const createVideo = () => {
     const currentControlIndex = Math.floor(
       beeVideo.currentTime / timePerAction
     );
-    if (currentControlIndex === totalLength) return;
+    if (
+      currentControlIndex === totalLength ||
+      Number.isNaN(currentControlIndex)
+    ) {
+      return;
+    }
     const currentControl = controls[currentControlIndex];
     const changeValue = currentControl.querySelector("input").value;
     switch (currentControl.querySelector("select").value) {
