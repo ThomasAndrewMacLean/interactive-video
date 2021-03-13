@@ -1,14 +1,12 @@
 let beeContainer = document.getElementById("beeContainer");
 let beeVideo;
 
-const turnBackgroundBlack = () => {
-  document.querySelector("body").style.backgroundColor = "#333";
+const changeBackgroundColor = (color) => {
+  document.querySelector("body").style.backgroundColor = color;
 };
-const turnBackgroundYellow = () => {
-  document.querySelector("body").style.backgroundColor = "#e2e246";
-};
-const growVideo = () => {
-  beeContainer.style.transform = "scale(2)";
+
+const scaleVideo = (scale) => {
+  beeContainer.style.transform = "scale(" + scale + ")";
 };
 const createVideo = () => {
   (beeVideo = document.createElement("video")), (beeVideo.id = "beeVideo");
@@ -29,17 +27,29 @@ const createVideo = () => {
     beeVideo.load();
 
   beeVideo.addEventListener("timeupdate", () => {
-    console.log(beeVideo.currentTime);
-    if (3 < beeVideo.currentTime && beeVideo.currentTime < 4) {
-      turnBackgroundBlack();
-    }
+    const controls = Array.from(
+      document.getElementById("controls").querySelectorAll("li")
+    );
+    const totalLength = beeVideo.duration;
+    const numberOfActions = controls.length;
+    const timePerAction = totalLength / numberOfActions;
+    const currentControlIndex = Math.floor(
+      beeVideo.currentTime / timePerAction
+    );
+    if (currentControlIndex === totalLength) return;
+    const currentControl = controls[currentControlIndex];
+    const changeValue = currentControl.querySelector("input").value;
+    switch (currentControl.querySelector("select").value) {
+      case "color":
+        changeBackgroundColor(changeValue);
+        break;
 
-    if (10 < beeVideo.currentTime && beeVideo.currentTime < 11) {
-      growVideo();
-    }
+      case "scale":
+        scaleVideo(changeValue);
+        break;
 
-    if (7 < beeVideo.currentTime && beeVideo.currentTime < 8) {
-      turnBackgroundYellow();
+      default:
+        break;
     }
   });
 };
